@@ -24,6 +24,9 @@ public class LabProjectP1_GermanFigueroa {
     public static void menu(){
         printMatriz(mapa);
         
+        System.out.println("Estado de caja: " + (caja ? "Cargando caja" : "Sin caja"));
+        System.out.println("Dulces restantes: " + dulces);
+        
         if(dulces == 0){
             System.out.println("FELICIDADES, HA ENTREGADO TODOS LOS DULCES !!");
             return;
@@ -76,6 +79,9 @@ public class LabProjectP1_GermanFigueroa {
             if(mapa[steeb_i][steeb_j].equals("j")){
                 caja = true;
                 mapa[steeb_i][steeb_j] = "S";
+                System.out.println("Cargando caja ");
+            }else{
+                System.out.println("No se esta cargando ninguna caja");
             }
         }else{
            if(mapa[steeb_i][steeb_j].equals("D")||
@@ -84,7 +90,9 @@ public class LabProjectP1_GermanFigueroa {
               
                caja = false;
                dulces--;
-               System.out.println("El dulce ha sido entregado");
+               System.out.println("La caja ha sido entregada en el almacen");
+           }else{
+               System.out.println("La caja se dejo en el suelo temporalmente");
            }     
         }
     }
