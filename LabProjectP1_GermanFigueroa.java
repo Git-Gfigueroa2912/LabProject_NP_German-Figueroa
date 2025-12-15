@@ -13,6 +13,7 @@ public class LabProjectP1_GermanFigueroa {
     public static int steeb_i = 3, steeb_j =13; 
     public static int regalosEntregados = 0;
     public static int Total_regalos = 6;
+    public static String celdaAnterior = " ";
     public static boolean gameOver = false;
     public static int dulces = 0;
     public static String [][] mapa;
@@ -64,19 +65,22 @@ public class LabProjectP1_GermanFigueroa {
         mover(nueva_x, nueva_y);
     }
     public static void mover(int nueva_x, int nueva_y){
-        if(nueva_x < 0 || nueva_y < 0 || nueva_x >= 24 || nueva_y >= 24){
-            System.out.println("No se puede salir del tablero");
+        String destino = mapa[nueva_x][nueva_y];
+        if(destino.equals("X") || destino.equals("/") || destino.equals("\\")
+          || destino.equals("|") || destino.equals("O")
+          || destino.equals("o") || destino.equals("0") || destino.equals("^")){
+            
+            System.out.println("Choco con un obstaculo");
+            gameOver = true;  
             return;
-                    
         }
-        
-        String destino =  mapa[nueva_x][nueva_y];
         
         if(Obstaculo(destino)){
             gameOver = true;
             return;
         }
         mapa[steeb_i][steeb_j] = " ";
+        celdaAnterior = destino;
         steeb_i = nueva_x;
         steeb_j = nueva_y;
         mapa[steeb_i][steeb_j] = "S";
@@ -92,16 +96,19 @@ public class LabProjectP1_GermanFigueroa {
             }else{
                 System.out.println("No se esta cargando ninguna caja");
             }
-        }else{
-           if(celda.equals("D") || celda.equals("H") || celda.equals("L")){
+            return;
+        }
+           if(celdaAnterior.equals("D") || celdaAnterior.equals("H") || celdaAnterior.equals("L")){
               
                caja = false;
+               regalosEntregados++;
                dulces--;
-               mapa[steeb_i][steeb_j] = "j";
                              
                System.out.println("Caja entregada" + celda);
                System.out.println("Regalos entregados: " +regalosEntregados);
                System.out.println("Regalos restantes: " + (Total_regalos - regalosEntregados));
+               
+               celdaAnterior = "j";
                
                if(regalosEntregados == Total_regalos){
                    System.out.println("FELICIDADES");
@@ -109,14 +116,16 @@ public class LabProjectP1_GermanFigueroa {
                    System.out.println("JUEGO TERMINADO");
                    gameOver = true;
                }
+               return;
            }else{
                caja = false;
-               mapa[steeb_i][steeb_j] = "j";
+               celdaAnterior = "j";
                System.out.println("La caja se dejo en el suelo temporalmente");
            }     
         }
-    }
-    public static void contarDulces(){
+        public static void contarDulces(){
+        int contador = 0;
+        
         for(int i = 0; i < 24; i++){
             for(int j = 0; j < 24; j++){
                 if(mapa[i][j].equals("j")){
