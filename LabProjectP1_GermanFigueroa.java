@@ -56,12 +56,17 @@ public class LabProjectP1_GermanFigueroa {
             usarCaja();
             return;
         }else{
+            System.out.println("El comando es invalido");
             return;
         }
         mover(nueva_x, nueva_y);
     }
     public static void mover(int nueva_x, int nueva_y){
-        if(nueva_x < 0 || nueva_y < 0 || nueva_x >= 24 || nueva_y >= 24) return;
+        if(nueva_x < 0 || nueva_y < 0 || nueva_x >= 24 || nueva_y >= 24){
+            System.out.println("No se puede salir del tablero");
+            return;
+                    
+        }
         
         String destino =  mapa[nueva_x][nueva_y];
         
@@ -90,7 +95,10 @@ public class LabProjectP1_GermanFigueroa {
               
                caja = false;
                dulces--;
-               System.out.println("La caja ha sido entregada en el almacen");
+               mapa[steeb_i][steeb_j] = "j";
+               
+               System.out.println("La caja ha sido entregada");
+               System.out.println("Dulces restantes: " + dulces);
            }else{
                System.out.println("La caja se dejo en el suelo temporalmente");
            }     
