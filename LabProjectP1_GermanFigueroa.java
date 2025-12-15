@@ -11,6 +11,8 @@ public class LabProjectP1_GermanFigueroa {
     public static String obstaculo = "";
     public static boolean caja=false;
     public static int steeb_i = 3, steeb_j =13; 
+    public static int regalosEntregados = 0;
+    public static int Total_regalos = 6;
     public static boolean gameOver = false;
     public static int dulces = 0;
     public static String [][] mapa;
@@ -80,6 +82,8 @@ public class LabProjectP1_GermanFigueroa {
         mapa[steeb_i][steeb_j] = "S";
     }
     public static void usarCaja(){
+        String celda = mapa[steeb_i][steeb_j];
+        
         if(!caja){
             if(mapa[steeb_i][steeb_j].equals("j")){
                 caja = true;
@@ -89,17 +93,25 @@ public class LabProjectP1_GermanFigueroa {
                 System.out.println("No se esta cargando ninguna caja");
             }
         }else{
-           if(mapa[steeb_i][steeb_j].equals("D")||
-              mapa[steeb_i][steeb_j].equals("H")||  
-              mapa[steeb_i][steeb_j].equals("L")){
+           if(celda.equals("D") || celda.equals("H") || celda.equals("L")){
               
                caja = false;
                dulces--;
                mapa[steeb_i][steeb_j] = "j";
+                             
+               System.out.println("Caja entregada" + celda);
+               System.out.println("Regalos entregados: " +regalosEntregados);
+               System.out.println("Regalos restantes: " + (Total_regalos - regalosEntregados));
                
-               System.out.println("La caja ha sido entregada");
-               System.out.println("Dulces restantes: " + dulces);
+               if(regalosEntregados == Total_regalos){
+                   System.out.println("FELICIDADES");
+                   System.out.println("Ha entregados los " + Total_regalos + "regalos");
+                   System.out.println("JUEGO TERMINADO");
+                   gameOver = true;
+               }
            }else{
+               caja = false;
+               mapa[steeb_i][steeb_j] = "j";
                System.out.println("La caja se dejo en el suelo temporalmente");
            }     
         }
@@ -231,6 +243,7 @@ public class LabProjectP1_GermanFigueroa {
         mat[15-c][centro] = "j";
         mat[15-c][centro + 2] = "O";
         mat[15-c][centro + 4] = "0";
+        mat[15-c][centro] = "j";
         
         mat[2][2] = "D";mat[0][23]="H";mat[12][2]="L";
         mat[9][22]= "D";mat[20][4]= "H";mat[18][20]="L";
